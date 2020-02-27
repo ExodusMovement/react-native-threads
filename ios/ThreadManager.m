@@ -6,6 +6,7 @@
 @synthesize bridge = _bridge;
 
 NSMutableDictionary *threads;
+int nextThreadId = 1;
 
 RCT_EXPORT_MODULE();
 
@@ -18,7 +19,7 @@ RCT_REMAP_METHOD(startThread,
     threads = [[NSMutableDictionary alloc] init];
   }
 
-  int threadId = abs(arc4random());
+  int threadId = nextThreadId++;
 
   NSURL *threadURL = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:name fallbackResource:name];
   NSLog(@"starting Thread %@", [threadURL absoluteString]);

@@ -33,6 +33,7 @@ public class RNThreadModule extends ReactContextBaseJavaModule implements Lifecy
 
   private String TAG = "ThreadManager";
   private HashMap<Integer, JSThread> threads;
+  private int nextThreadId = 1;
 
   private ReactApplicationContext reactApplicationContext;
 
@@ -78,13 +79,14 @@ public class RNThreadModule extends ReactContextBaseJavaModule implements Lifecy
               .setReactInstanceManager(getReactInstanceManager())
               .setReactPackages(threadPackages);
 
-      JSThread thread = new JSThread(jsFileSlug);
+      int id = nextThreadId++;
+      JSThread thread = new JSThread(jsFileSlug, id);
       thread.runFromContext(
               getReactApplicationContext(),
               threadContextBuilder
       );
-      threads.put(thread.getThreadId(), thread);
-      promise.resolve(thread.getThreadId());
+      threads.put(id, thread);
+      promise.resolve(id);
     } catch (Exception e) {
       promise.reject(e);
       getDevSupportManager().handleException(e);
