@@ -1,5 +1,9 @@
 #import "ThreadManager.h"
+#import "ThreadsDevSettings.h"
 #include <stdlib.h>
+
+@implementation ThreadsInstanceData
+@end
 
 @implementation ThreadManager
 {
@@ -49,9 +53,18 @@ RCT_REMAP_METHOD(startThread,
   NSURL *threadURL = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:name fallbackResource:name];
   NSLog(@"starting Thread %@", [threadURL absoluteString]);
 
+  __block ThreadsInstanceData *threadData = [[ThreadsInstanceData alloc] init];
+  threadData.name = name;
+  threadData.bundlerPort = nil; // if we ever add support for custom ports we should put unique ports here
 
-   RCTBridge *threadBridge = [[RCTBridge alloc] initWithBundleURL:threadURL
-                                            moduleProvider:nil
+  RCTBridgeModuleListProvider threadModuleProvider = ^NSArray<id<RCTBridgeModule>> *{
+    ThreadsDevSettings *devSettings = [[ThreadsDevSettings alloc] initWithData:threadData];
+    return @[devSettings];
+  };
+
+
+  RCTBridge *threadBridge = [[RCTBridge alloc] initWithBundleURL:threadURL
+                                            moduleProvider:threadModuleProvider
                                              launchOptions:nil];
 
   ThreadSelfManager *threadSelf = [threadBridge moduleForName:@"ThreadSelfManager"];

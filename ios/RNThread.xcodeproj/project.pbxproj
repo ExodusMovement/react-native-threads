@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7793197A247812E40053EE27 /* ThreadsDevSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 77931978247812E40053EE27 /* ThreadsDevSettings.m */; };
 		C039B44A1F6CF2A4009CB65E /* ThreadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C039B4471F6CF2A4009CB65E /* ThreadManager.m */; };
 		C039B44B1F6CF2A4009CB65E /* WorkerSelfManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C039B4491F6CF2A4009CB65E /* WorkerSelfManager.m */; };
 /* End PBXBuildFile section */
@@ -25,6 +26,8 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNThread.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNThread.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		77931978247812E40053EE27 /* ThreadsDevSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadsDevSettings.m; sourceTree = "<group>"; };
+		77931979247812E40053EE27 /* ThreadsDevSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadsDevSettings.h; sourceTree = "<group>"; };
 		C039B4461F6CF2A4009CB65E /* ThreadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadManager.h; sourceTree = "<group>"; };
 		C039B4471F6CF2A4009CB65E /* ThreadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadManager.m; sourceTree = "<group>"; };
 		C039B4481F6CF2A4009CB65E /* ThreadSelfManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadSelfManager.h; sourceTree = "<group>"; };
@@ -53,6 +56,8 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				77931979247812E40053EE27 /* ThreadsDevSettings.h */,
+				77931978247812E40053EE27 /* ThreadsDevSettings.m */,
 				C039B4461F6CF2A4009CB65E /* ThreadManager.h */,
 				C039B4471F6CF2A4009CB65E /* ThreadManager.m */,
 				C039B4481F6CF2A4009CB65E /* ThreadSelfManager.h */,
@@ -100,6 +105,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 58B511D21A9E6C8500147676;
@@ -117,6 +123,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7793197A247812E40053EE27 /* ThreadsDevSettings.m in Sources */,
 				C039B44A1F6CF2A4009CB65E /* ThreadManager.m in Sources */,
 				C039B44B1F6CF2A4009CB65E /* WorkerSelfManager.m in Sources */,
 			);
