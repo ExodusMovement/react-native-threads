@@ -14,5 +14,4 @@
 @end
 
 @interface ThreadsDevSettings : RCTDevSettings <RCTBridgeModule>
-- (instancetype)initWithData:(ThreadsInstanceData *)data;
 @end
