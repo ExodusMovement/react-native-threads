@@ -8,8 +8,8 @@ export default class Thread {
       throw new Error("Invalid path for thread. Only js files are supported");
     }
 
-    this.id = ThreadManager.startThread(jsPath.replace(".js", ""))
-      .then((id) => {
+    this.id = ThreadManager.startThread(jsPath.replace(".js", "")).then(
+      (id) => {
         DeviceEventEmitter.addListener(`Thread`, (msg) => {
           if (!msg) return;
           const { message, id: threadId } = JSON.parse(msg);
@@ -17,10 +17,8 @@ export default class Thread {
             this.onmessage(JSON.stringify(message));
         });
         return id;
-      })
-      .catch((err) => {
-        throw new Error(err);
-      });
+      }
+    );
   }
 
   postMessage(message) {
