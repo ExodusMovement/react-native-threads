@@ -8,6 +8,7 @@ RCT_EXPORT_MODULE();
 @synthesize bridge = _bridge;
 @synthesize workerManager = _workerManager;
 @synthesize threadId = _threadId;
+@synthesize threadMessage = _threadMessage;
 
 RCT_EXPORT_METHOD(postMessage: (NSString *)message)
 {
@@ -16,9 +17,9 @@ RCT_EXPORT_METHOD(postMessage: (NSString *)message)
     return;
   }
 
-  NSString *eventName = [NSString stringWithFormat:@"Thread%i", self.threadId];
+  NSString *eventBody = [NSString stringWithFormat:@"{\"id\":%i,\"message\":%@}", self.threadId, message];
 
-  [self.workerManager checkAndSendEvent:eventName body:message];
+  [self.workerManager checkAndSendEvent:self.threadMessage body:eventBody];
 }
 
 @end

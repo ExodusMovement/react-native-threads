@@ -9,6 +9,7 @@
 @interface ThreadSelfManager : NSObject <RCTBridgeModule>
 @property int threadId;
 @property id workerManager;
+@property NSString *threadMessage;
 @end
 
 #endif

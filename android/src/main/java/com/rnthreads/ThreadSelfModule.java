@@ -32,6 +32,6 @@ public class ThreadSelfModule extends ReactContextBaseJavaModule {
         if (parentContext == null) { return; }
 
         parentContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                .emit("Thread" + String.valueOf(threadId), data);
+                .emit("Thread", String.format("{\"id\":%d,\"message\":%s}", threadId, data));
     }
 }

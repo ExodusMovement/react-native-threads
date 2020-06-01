@@ -12,10 +12,11 @@
 NSMutableDictionary *threads;
 int nextThreadId = 1;
 NSString *const THREAD_TERMINATED = @"ThreadIsTerminated";
+NSString *const THREAD_MESSAGE = @"Thread";
 
 - (NSArray<NSString *> *)supportedEvents
 {
-  return @[THREAD_TERMINATED, @"Thread0", @"Thread1", @"Thread2", @"Thread3", @"Thread4"];
+  return @[THREAD_TERMINATED, THREAD_MESSAGE];
 }
 
 -(void)startObserving {
@@ -63,6 +64,7 @@ RCT_REMAP_METHOD(startThread,
   ThreadSelfManager *threadSelf = [threadBridge moduleForName:@"ThreadSelfManager"];
   [threadSelf setThreadId:threadId];
   [threadSelf setWorkerManager:self];
+  [threadSelf setThreadMessage:THREAD_MESSAGE];
 
 
   [threads setObject:threadBridge forKey:[NSNumber numberWithInt:threadId]];
