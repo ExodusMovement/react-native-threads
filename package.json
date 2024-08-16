@@ -26,7 +26,8 @@
     "/ios/RNThread.xcodeproj/project.pbxproj",
     "/ios/RNThread.xcodeproj/project.xcworkspace/!(xcuserdata)",
     "/js/",
-    "/index.js"
+    "/index.js",
+    "RNThread.podspec"
   ],
   "peerDependencies": {
     "react-native": ">=0.50.0"
