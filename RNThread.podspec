@@ -10,9 +10,9 @@ Pod::Spec.new do |s|
     s.description    = "React native threads"
     s.license        = package['license']
     s.author         = package['author']
-    s.homepage       = "https://github.com/alexandrius/RNThread.git"
+    s.homepage       = "https://github.com/ExodusMovement/react-native-threads.git"
     s.platforms      = { :ios => "11.0" }
-    s.source         = { :git => "https://github.com/alexandrius/RNThread.git", :tag => "#{s.version}" }
+    s.source         = { :git => "https://github.com/ExodusMovement/react-native-threads.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm}"
 
