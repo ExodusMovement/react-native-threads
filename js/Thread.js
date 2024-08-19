@@ -1,6 +1,7 @@
-import { NativeModules, DeviceEventEmitter } from "react-native";
+import { NativeModules, NativeEventEmitter } from "react-native";
 
 const { ThreadManager } = NativeModules;
+const emitter = new NativeEventEmitter(ThreadManager)
 
 export default class Thread {
   constructor(jsPath) {
@@ -10,7 +11,7 @@ export default class Thread {
 
     this.id = ThreadManager.startThread(jsPath.replace(".js", "")).then(
       (id) => {
-        DeviceEventEmitter.addListener(`Thread`, (msg) => {
+        emitter.addListener(`Thread`, (msg) => {
           if (!msg) return;
           const { message, id: threadId } = JSON.parse(msg);
           if (id === threadId && this.onmessage)
