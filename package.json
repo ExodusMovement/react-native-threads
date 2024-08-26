@@ -21,12 +21,12 @@
   "author": "Travis Nuttall",
   "license": "MIT",
   "files": [
-    "/android/!(build)",
-    "/ios/!(build|RNThread.xcodeproj)",
-    "/ios/RNThread.xcodeproj/project.pbxproj",
-    "/ios/RNThread.xcodeproj/project.xcworkspace/!(xcuserdata)",
-    "/js/",
-    "/index.js",
+    "android/src",
+    "android/build.gradle",
+    "ios",
+    "!**/build/**",
+    "js/",
+    "index.js",
     "RNThread.podspec"
   ],
   "peerDependencies": {
