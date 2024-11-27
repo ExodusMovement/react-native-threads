@@ -135,7 +135,36 @@ remotely behave unpredictably. I recommend using a third party debugging tool li
 including your main application as well as your thread code can connect to Reactotron
 and log debugging messages.
 
-### Building for Release
+
+### Set up automated bundling [iOS]
+
+Bundling can be automated on iOS. 
+
+- Create a build phase "Bundle thread" and paste script below. 
+
+```bash
+if [[ $CONFIGURATION == 'Release' ]]
+then
+ source ../scripts/detect-nvm.sh
+ cd ..
+ sh ./scripts/bundleThread.sh
+else
+  rm index.thread.jsbundle
+  touch index.thread.jsbundle
+fi
+```
+
+- Once the script is there add item to Output Files and set `$(SRCROOT)/index.thread.jsbundle`
+- Now create a `bundleThread.sh` script and paste code below. (Make sure the entry file is correct)
+
+```bash
+REACT_NATIVE_DIR="node_modules/react-native"
+node "$REACT_NATIVE_DIR/local-cli/cli.js" bundle --dev false --assets-dest ./ios --entry-file threads/sdk/index.js --platform ios --bundle-output ./ios/index.thread.jsbundle
+```
+
+
+
+### Building for Release [Android]
 
 You will need to manually bundle your thread files for use in a production release
 of your app. This documentation assumes you have a single thread file called
@@ -143,26 +172,15 @@ of your app. This documentation assumes you have a single thread file called
 a different location, you can update the documented commands accordingly.
 
 **Note**: If your single thread file is in a different location, the folder structure needs to
-be replicated under `./ios` and `./android/app/src/main/assets/threads`.
+be replicated under `./android/app/src/main/assets/threads`.
 
 ```
 ./App/Workers/worker.thread.js => ./ios/App/Workers/worker.thread.jsbundle
 ./App/Workers/worker.thread.js => ./android/app/src/main/assets/threads/App/Workers/worker.thread.jsbundle
 ```
 
-For iOS you can use the following command:
 
-`node node_modules/react-native/local-cli/cli.js bundle --dev false --assets-dest ./ios --entry-file index.thread.js --platform ios --bundle-output ./ios/index.thread.jsbundle`
-
-Once you have generated the bundle file in your ios folder, you will also need to add
-the bundle file to you project in Xcode. In Xcode's file explorer you should see
-a folder with the same name as your app, containing a `main.jsbundle` file as well
-as an `appDelegate.m` file. Right click on that folder and select the 'Add Files to <Your App Name>'
-option, which will open up finder and allow you to select your `ios/index.thread.jsbundle`
-file. You will only need to do this once, and the file will be included in all future
-builds.
-
-For Android create this direactory
+Create this direactory
 `mkdir ./android/app/src/main/assets/threads`
 
 And then you can use the following command:
