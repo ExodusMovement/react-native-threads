@@ -47,34 +47,30 @@ RCT_REMAP_METHOD(startThread,
   }
 
   int threadId = nextThreadId++;
+    
+  NSURL *threadURL;
 
-  NSString *jsFileSlug = [name containsString:@"./"]
-    ? [name stringByReplacingOccurrencesOfString:@"./" withString:@""]
-    : name;
-
-  // Bundled JavaScript is placed within the resources directory.
-  NSURL *bundledThreadURL = [[NSBundle mainBundle] URLForResource:[NSString stringWithFormat:@"%@", [jsFileSlug lastPathComponent]] withExtension:@"jsbundle"];
-
+#ifdef DEBUG
+  threadURL = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:name];
+#else
+  NSString *jsBundlePath = [[NSBundle mainBundle] pathForResource:@"index.thread" ofType:@"jsbundle"];
+    
   // Check whether we can read bundle JS the resources directory. If
   // the file is not found, error will be non-nil.
   NSError *error = nil;
-  NSURL *threadURL = [bundledThreadURL checkResourceIsReachableAndReturnError:&error]
-    ? bundledThreadURL
-    : [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:name];
 
-  #ifndef DEBUG
-    // For non-debug builds, we enforce that the bundle JS must
-    // be available in the resources dir by terminating before
-    // falling back to loading via Metro.
-    if (error) {
-      reject(
+  if(error != nil){
+    reject(
         [NSString stringWithFormat:@"%ld", (long)error.code],
         [NSString stringWithFormat:@"Unable to resolve thread bundle: %@", error.localizedDescription],
         error
-      );
-      return;
-    }
-  #endif
+    );
+    return;
+  }
+
+  threadURL = [NSURL fileURLWithPath:jsBundlePath];
+#endif
+    
   NSLog(@"starting Thread %@", [threadURL absoluteString]);
 
   RCTBridgeModuleListProvider threadModuleProvider = ^NSArray<id<RCTBridgeModule>> *{
